@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mente Joven</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <style>
+    :root {
+      --color-bg: #f2f8f6;
+      --color-accent: #a0d8d1;
+      --color-text: #333;
+      --color-secondary: #f9c8d0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(to bottom right, #eef6f4, #fafbfd);
+      color: var(--color-text);
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+    }
+
+    header img {
+      width: 180px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: #3a7770;
+    }
+
+    section {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    section h2 {
+      font-size: 1.8rem;
+      color: #408c84;
+      margin-bottom: 1rem;
+    }
+
+    section p, section ul {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    section ul {
+      padding-left: 1.5rem;
+    }
+
+    .swiper {
+      width: 100%;
+      max-width: 700px;
+      margin: 2rem auto;
+      padding-bottom: 3rem;
+    }
+
+    .swiper-slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .swiper-slide img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      section {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo-mente-joven.png" alt="Mente Joven Logo">
+    <h1>Mente Joven</h1>
+  </header>
+
+  <section data-aos="fade-up">
+    <h2>¿Qué es la salud mental?</h2>
+    <p>La salud mental es un estado de bienestar emocional, psicológico y social que permite a una persona:</p>
+    <ul>
+      <li>Enfrentar el estrés cotidiano.</li>
+      <li>Trabajar de forma productiva.</li>
+      <li>Establecer relaciones saludables.</li>
+      <li>Tomar decisiones adecuadas.</li>
+      <li>Desarrollar todo su potencial.</li>
+    </ul>
+    <p>Según la OMS, la salud mental no es solo la ausencia de trastornos, sino un componente esencial del bienestar general.</p>
+  </section>
+
+  <section data-aos="fade-up">
+    <h2>Importancia desde la adolescencia</h2>
+    <p>Durante la adolescencia y juventud, ocurren grandes cambios emocionales, físicos y sociales. Cuidar la salud mental en esta etapa:</p>
+    <ul>
+      <li>Favorece una buena autoestima y autoconocimiento.</li>
+      <li>Previene trastornos mentales futuros.</li>
+      <li>Mejora el rendimiento académico y las relaciones.</li>
+      <li>Fomenta la resiliencia.</li>
+    </ul>
+  </section>
+
+  <section data-aos="fade-up">
+    <h2>Salud mental ≠ enfermedad mental</h2>
+    <p>Tener emociones como tristeza, ansiedad o enojo no significa tener un trastorno mental. Son reacciones normales ante situaciones de la vida.</p>
+    <p>La clave está en reconocer cuándo esas emociones interfieren con tu bienestar y tu vida diaria.</p>
+  </section>
+
+  <section data-aos="fade-up">
+    <h2>Problemas comunes en jóvenes</h2>
+    <p>A continuación, los problemas más frecuentes con sus causas y señales de alerta:</p>
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="problemas-mentales-info.png" alt="Problemas comunes de salud mental">
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Mente Joven · Todos los derechos reservados
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <script>
+    AOS.init({ duration: 1000, once: true });
+    const swiper = new Swiper('.mySwiper', {
+      loop: true,
+      spaceBetween: 20,
+      centeredSlides: true,
+      autoplay: { delay: 5000, disableOnInteraction: false },
+      pagination: { el: '.swiper-pagination', clickable: true },
+    });
+  </script>
+</body>
+</html>
