@@ -1,124 +1,623 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mente Joven</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
   <style>
     :root {
       --color-bg: #f2f8f6;
       --color-accent: #a0d8d1;
       --color-text: #333;
       --color-secondary: #f9c8d0;
+      --color-primary: #3a7770;
+      --color-button: #4a9e92;
+      --color-button-hover: #3a7770;
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    
     body {
       font-family: 'Nunito', sans-serif;
-      background: linear-gradient(to bottom right, #eef6f4, #fafbfd);
+      margin: 0;
+      background: linear-gradient(-45deg, #eef6f4, #f0f7fa, #f5f0fa, #faf0f5);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
       color: var(--color-text);
+      min-height: 100vh;
+      padding-bottom: 80px; /* Espacio para la frase motivacional */
     }
-
+    
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
     header {
       text-align: center;
-      padding: 3rem 1rem 2rem;
+      padding: 3rem 1rem 4rem;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(58, 119, 112, 0.8), rgba(160, 216, 209, 0.8));
+      color: white;
+      clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+      margin-bottom: 2rem;
     }
-
-    header img {
-      width: 180px;
-      animation: float 6s ease-in-out infinite;
+    
+    .header-content {
+      position: relative;
+      z-index: 2;
     }
-
+    
+    .header-bubbles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .bubble {
+      position: absolute;
+      bottom: -100px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      animation: float-bubbles 15s infinite ease-in;
+    }
+    
+    @keyframes float-bubbles {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+      }
+    }
+    
+header img {
+  width: 180px;
+  transition: transform 2s ease-in-out;
+  filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
+  border-radius: 50%;
+  border: 5px solid white;
+  background: white;
+  padding: 10px;
+}
+    header img:hover {
+  animation: float 3s ease-in-out;
+}
     header h1 {
-      font-size: 2.5rem;
-      color: #3a7770;
+      font-size: 2.8rem;
+      color: white;
+      margin-top: 1rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
-
+    
+    header p.subtitle {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0.5rem auto 0;
+      font-weight: 300;
+    }
+    
+    /* Frase motivacional fija */
+    .frase-motivacional {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(58, 119, 112, 0.9);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.1rem;
+      z-index: 1000;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      animation: slideUp 0.5s ease-out;
+    }
+    
+    .frase-motivacional p {
+      margin: 0;
+      font-style: italic;
+    }
+    
+    .frase-motivacional .autor {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-top: 0.3rem;
+    }
+    
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+    
     section {
       max-width: 900px;
       margin: 2rem auto;
-      background: white;
+      background: rgba(255, 255, 255, 0.9);
       border-radius: 20px;
       padding: 2rem;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.3);
     }
-
+    
     section h2 {
       font-size: 1.8rem;
-      color: #408c84;
+      color: var(--color-primary);
+      margin-top: 0;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    
+    section h2::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--color-accent);
+      border-radius: 3px;
+    }
+    
+    section p, section ul, section form, section iframe {
       margin-bottom: 1rem;
+      line-height: 1.6;
     }
-
-    section p, section ul {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
+    
+    ul {
+      padding-left: 1.2rem;
     }
-
-    section ul {
-      padding-left: 1.5rem;
+    
+    li {
+      margin-bottom: 0.5rem;
     }
-
+    
+    form label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+    
+    form select, form input, form textarea {
+      padding: 0.8rem;
+      width: 100%;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-family: inherit;
+      background-color: white;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+    
+    form textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    
+    form select {
+      appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg fill="%233a7770" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 20px;
+    }
+    
+    form select:focus, form input:focus, form textarea:focus {
+      outline: none;
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px rgba(160, 216, 209, 0.3);
+    }
+    
+    button {
+      background-color: var(--color-button);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1.5rem;
+      display: inline-block;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: auto;
+    }
+    
+    button:hover {
+      background-color: var(--color-button-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
     .swiper {
       width: 100%;
       max-width: 700px;
       margin: 2rem auto;
-      padding-bottom: 3rem;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     }
-
+    
     .swiper-slide {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      padding: 2rem;
+      text-align: center;
+      height: auto;
+    }
+    
+    .swiper-slide img {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      border-radius: 15px;
+      margin-bottom: 1.5rem;
+    }
+    
+    .swiper-slide h3 {
+      color: var(--color-primary);
+      margin: 0.5rem 0;
+    }
+    
+    .swiper-slide p {
+      color: #555;
+      max-width: 80%;
+    }
+    
+    .swiper-pagination-bullet {
+      background: #ccc;
+      opacity: 1;
+    }
+    
+    .swiper-pagination-bullet-active {
+      background: var(--color-primary);
+    }
+    
+    .motivational {
+      background: rgba(160, 216, 209, 0.2);
+      border-left: 5px solid var(--color-accent);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      border-radius: 0 10px 10px 0;
+      position: relative;
+      font-size: 1.1rem;
+    }
+    
+    .motivational::before {
+      content: '"';
+      font-size: 4rem;
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      color: rgba(160, 216, 209, 0.3);
+      line-height: 1;
+    }
+    
+    iframe {
+      width: 100%;
+      height: 315px;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin: 1rem 0;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      font-size: 0.9rem;
+      color: #777;
+      background: rgba(255,255,255,0.8);
+      margin-top: 3rem;
+    }
+    
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  25% { transform: translateY(-5px); }
+  50% { transform: translateY(-10px); }
+  75% { transform: translateY(-5px); }
+}
+    
+    /* Ruleta de emociones personalizada */
+    .ruleta-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 2rem 0;
+    }
+    
+    .ruleta {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      margin-bottom: 1.5rem;
+      transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+    }
+    
+    .ruleta-segmento {
+      position: absolute;
+      width: 50%;
+      height: 50%;
+      transform-origin: bottom right;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 20px;
       overflow: hidden;
-      background: #fff;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
     }
-
-    .swiper-slide img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 20px;
-    }
-
-    footer {
+    
+    .ruleta-segmento span {
+      position: absolute;
+      transform: rotate(45deg);
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      width: 100px;
       text-align: center;
-      padding: 2rem 1rem;
-      font-size: 0.9rem;
-      color: #777;
     }
-
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-      100% { transform: translateY(0); }
+    
+    .ruleta-btn {
+      background-color: var(--color-button);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
-
-    @media (max-width: 600px) {
+    
+    .ruleta-btn:hover {
+      background-color: var(--color-button-hover);
+      transform: translateY(-2px);
+    }
+    
+    .resultado-emocion {
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--color-primary);
+      text-align: center;
+      min-height: 2rem;
+    }
+    
+    /* Bingo interactivo */
+    .bingo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    
+    @media (min-width: 600px) {
+      .bingo-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    .bingo-item {
+      background: white;
+      border: 2px solid var(--color-accent);
+      border-radius: 10px;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .bingo-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .bingo-item.marcado {
+      background-color: rgba(160, 216, 209, 0.2);
+      border-color: var(--color-primary);
+    }
+    
+    .bingo-item.marcado::after {
+      content: "✓";
+      position: absolute;
+      top: -5px;
+      right: 5px;
+      color: var(--color-primary);
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    
+    .bingo-item .emoji {
+      font-size: 1.5rem;
+      margin-right: 0.8rem;
+    }
+    
+    .bingo-progreso {
+      height: 10px;
+      background: #eee;
+      border-radius: 5px;
+      margin: 1.5rem 0;
+      overflow: hidden;
+    }
+    
+    .bingo-progreso-bar {
+      height: 100%;
+      background: linear-gradient(to right, var(--color-accent), var(--color-primary));
+      border-radius: 5px;
+      transition: width 0.5s ease;
+      width: 0%;
+    }
+    
+    .bingo-mensaje {
+      text-align: center;
+      font-weight: bold;
+      color: var(--color-primary);
+      margin-top: 1rem;
+      min-height: 1.5rem;
+    }
+    
+    /* Sección de contacto */
+    .contacto-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .contacto-form {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    .contacto-form h3 {
+      color: var(--color-primary);
+      margin-top: 0;
+    }
+    
+    .contacto-info {
+      background: rgba(160, 216, 209, 0.1);
+      padding: 2rem;
+      border-radius: 15px;
+      border: 1px solid var(--color-accent);
+    }
+    
+    .contacto-info h3 {
+      color: var(--color-primary);
+      margin-top: 0;
+    }
+    
+    .contacto-info ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .contacto-info li {
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+    }
+    
+    .contacto-info i {
+      margin-right: 1rem;
+      color: var(--color-primary);
+      font-size: 1.2rem;
+      width: 20px;
+      text-align: center;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: var(--color-primary);
+      color: white;
+      border-radius: 50%;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .social-links a:hover {
+      background: var(--color-button-hover);
+      transform: translateY(-3px);
+    }
+    
+    /* Animaciones */
+    .animate-pop {
+      animation: pop 0.5s ease;
+    }
+    
+    @keyframes pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        padding: 2rem 1rem 3rem;
+      }
+      
       header h1 {
         font-size: 2rem;
       }
-
+      
+      header p.subtitle {
+        font-size: 1rem;
+      }
+      
       section {
         padding: 1.5rem;
+        margin: 1.5rem auto;
+      }
+      
+      section h2 {
+        font-size: 1.5rem;
+      }
+      
+      .ruleta {
+        width: 250px;
+        height: 250px;
+      }
+      
+      .contacto-container {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Frase motivacional fija -->
+  <div class="frase-motivacional" id="frase-motivacional">
+    <p id="frase-texto">"La salud mental es tan importante como la salud física."</p>
+    <div class="autor" id="frase-autor">- Anónimo</div>
+  </div>
+
   <header>
-    <img src="logo-mente-joven.png" alt="Mente Joven Logo">
-    <h1>Mente Joven</h1>
+    <div class="header-bubbles" id="header-bubbles"></div>
+    <div class="header-content">
+      <img src="logo-mente-joven.png" alt="Mente Joven Logo" class="animate__animated animate__fadeIn">
+      <h1 class="animate__animated animate__fadeIn">Mente Joven</h1>
+      <p class="subtitle animate__animated animate__fadeIn">Cuidando tu bienestar emocional en cada etapa</p>
+    </div>
   </header>
 
   <section data-aos="fade-up">
@@ -153,14 +652,167 @@
 
   <section data-aos="fade-up">
     <h2>Problemas comunes en jóvenes</h2>
-    <p>A continuación, los problemas más frecuentes con sus causas y señales de alerta:</p>
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
-          <img src="problemas-mentales-info.png" alt="Problemas comunes de salud mental">
+          <img src="ansiedad.jpeg" alt="Ansiedad">
+          <h3>Ansiedad</h3>
+          <p>Preocupación excesiva, miedo o pánico que interfiere con la vida diaria. Puede incluir síntomas físicos como taquicardia o sudoración.</p>
+        </div>
+        <div class="swiper-slide">
+          <img src="depresion.jpeg" alt="Depresión">
+          <h3>Depresión</h3>
+          <p>Tristeza persistente, pérdida de interés en actividades, cambios en el sueño y apetito. No es solo "estar triste", es una condición médica.</p>
+        </div>
+        <div class="swiper-slide">
+          <img src="transalimen.jpeg" alt="Trastornos alimenticios">
+          <h3>Trastornos alimenticios</h3>
+          <p>Conductas alimentarias anormales como restricción extrema, atracones o purgas. A menudo relacionados con la imagen corporal.</p>
+        </div>
+        <div class="swiper-slide">
+          <img src="adicciones.jpeg" alt="Adicciones">
+          <h3>Adicciones</h3>
+          <p>Uso compulsivo de sustancias o comportamientos (redes sociales, juegos) a pesar de consecuencias negativas.</p>
+        </div>
+        <div class="swiper-slide">
+          <img src="autolesion.jpeg" alt="Autolesión">
+          <h3>Autolesión</h3>
+          <p>Daño intencional al propio cuerpo como forma de afrontar emociones abrumadoras. No es lo mismo que intento de suicidio.</p>
         </div>
       </div>
       <div class="swiper-pagination"></div>
+    </div>
+  </section>
+
+  <section data-aos="fade-up">
+    <h2>¿Cómo está tu salud emocional hoy?</h2>
+    <form id="form-salud">
+      <label>1. Me siento triste sin razón clara:</label>
+      <select><option>Nunca</option><option>A veces</option><option>Frecuentemente</option><option>Siempre</option></select>
+      <label>2. Me cuesta concentrarme:</label>
+      <select><option>Nunca</option><option>A veces</option><option>Frecuentemente</option><option>Siempre</option></select>
+      <label>3. Cambios de ánimo o irritabilidad:</label>
+      <select><option>Nunca</option><option>A veces</option><option>Frecuentemente</option><option>Siempre</option></select>
+      <label>4. Me siento apoyado/a:</label>
+      <select><option>Siempre</option><option>Casi siempre</option><option>Rara vez</option><option>Nunca</option></select>
+      <label>5. Dificultades para dormir:</label>
+      <select><option>Nunca</option><option>A veces</option><option>Frecuentemente</option><option>Siempre</option></select>
+      <button type="button" id="evaluar-salud">Evaluar</button>
+    </form>
+  </section>
+
+  <section data-aos="fade-up">
+    <h2>Frase del día</h2>
+    <div class="motivational" id="frase-del-dia">"Eres más fuerte de lo que crees y mereces estar en paz contigo mismo/a."</div>
+    <button type="button" id="cambiar-frase">Cambiar frase</button>
+  </section>
+
+  <section data-aos="fade-up">
+    <h2>Videos recomendados</h2>
+    <iframe src="https://www.youtube.com/embed/_9agX3gY1jU?si=d4SbMvf7lxOrTfdr" title="Salud mental"></iframe>
+    <iframe src="https://www.youtube.com/embed/wfOHdfqqJTs?si=TFmXJBqvZZNpPKWy" title="¿Cómo empezar a Cuidar mi Salud Mental?"></iframe>
+  </section>
+
+  <section data-aos="fade-up">
+    <h2>Ruleta de emociones</h2>
+    <p>Gira la ruleta para expresar lo que sientes hoy.</p>
+    <div class="ruleta-container">
+      <div class="ruleta" id="ruleta">
+        <div class="ruleta-segmento" style="transform: rotate(0deg); background-color: #FF9AA2;"><span>Felicidad</span></div>
+        <div class="ruleta-segmento" style="transform: rotate(72deg); background-color: #FFB7B2;"><span>Tristeza</span></div>
+        <div class="ruleta-segmento" style="transform: rotate(144deg); background-color: #FFDAC1;"><span>Enojo</span></div>
+        <div class="ruleta-segmento" style="transform: rotate(216deg); background-color: #E2F0CB;"><span>Miedo</span></div>
+        <div class="ruleta-segmento" style="transform: rotate(288deg); background-color: #B5EAD7;"><span>Calma</span></div>
+      </div>
+      <button class="ruleta-btn" id="girar-ruleta">Girar ruleta</button>
+      <div class="resultado-emocion" id="resultado-emocion"></div>
+    </div>
+  </section>
+
+  <section data-aos="fade-up">
+    <h2>Test de Autoestima</h2>
+    <form id="form-autoestima">
+      <label>1. Suelo pensar cosas negativas sobre mí:</label>
+      <select><option>Nunca</option><option>A veces</option><option>A menudo</option><option>Siempre</option></select>
+      <label>2. Me comparo constantemente con los demás:</label>
+      <select><option>Nunca</option><option>A veces</option><option>A menudo</option><option>Siempre</option></select>
+      <label>3. Acepto cumplidos con facilidad:</label>
+      <select><option>Siempre</option><option>Casi siempre</option><option>A veces</option><option>Nunca</option></select>
+      <label>4. Creo que valgo por lo que soy:</label>
+      <select><option>Siempre</option><option>Casi siempre</option><option>A veces</option><option>Nunca</option></select>
+      <label>5. Me cuesta decir "no":</label>
+      <select><option>Nunca</option><option>A veces</option><option>A menudo</option><option>Siempre</option></select>
+      <button type="button" id="evaluar-autoestima">Evaluar Autoestima</button>
+    </form>
+  </section>
+
+  <section data-aos="fade-up">
+    <h2>Recursos para padres, docentes y jóvenes</h2>
+    <ul>
+      <li><a href="https://www.unicef.org/lac/crianza/seguridad-proteccion/salud-mental-pocas-palabras">Salud Mental en pocas palabras</a></li>
+      <li><a href="https://www.who.int/es/news-room/fact-sheets/detail/adolescent-mental-health">La salud mental de los adolescentes</a></li>
+      <li><a href="https://www.educaciontrespuntocero.com/libros/libros-salud-mental/">Libros para cuidar la salud mental</a></li>
+      <li><a href="https://psicologiaymente.com/psicologia/salud-mental">Psicología y Mente</a></li>
+      <li><a href="https://www.hdi.com.mx/blog/prevencion/todo-sobre-apps-de-salud-mental/">Apps recomendadas</a></li>
+    </ul>
+  </section>
+
+  <section data-aos="fade-up">
+    <h2>Dinámica: Bingo del Autocuidado</h2>
+    <p>Marca las actividades que realizaste esta semana:</p>
+    <div class="bingo-grid" id="bingo-grid">
+      <div class="bingo-item" data-index="0"><span class="emoji">💧</span> Tomé suficiente agua</div>
+      <div class="bingo-item" data-index="1"><span class="emoji">🌿</span> Salí a caminar o hice ejercicio</div>
+      <div class="bingo-item" data-index="2"><span class="emoji">📝</span> Escribí cómo me sentía</div>
+      <div class="bingo-item" data-index="3"><span class="emoji">🎧</span> Escuché música que me gusta</div>
+      <div class="bingo-item" data-index="4"><span class="emoji">🤝</span> Pedí ayuda o hablé con alguien</div>
+      <div class="bingo-item" data-index="5"><span class="emoji">😴</span> Dormí 7-8 horas</div>
+      <div class="bingo-item" data-index="6"><span class="emoji">📖</span> Leí algo inspirador</div>
+      <div class="bingo-item" data-index="7"><span class="emoji">🎨</span> Hice algo creativo</div>
+      <div class="bingo-item" data-index="8"><span class="emoji">🧘</span> Practiqué relajación</div>
+    </div>
+    <div class="bingo-progreso">
+      <div class="bingo-progreso-bar" id="bingo-progreso"></div>
+    </div>
+    <div class="bingo-mensaje" id="bingo-mensaje"></div>
+  </section>
+
+  <section data-aos="fade-up">
+    <h2>Contáctanos</h2>
+    <p>¿Tienes preguntas o necesitas más información? Estamos aquí para ayudarte.</p>
+    
+    <div class="contacto-container">
+      <div class="contacto-form">
+        <h3>Envíanos un mensaje</h3>
+        <form id="form-contacto">
+          <label for="nombre">Nombre:</label>
+          <input type="text" id="nombre" name="nombre" required>
+          
+          <label for="email">Correo electrónico:</label>
+          <input type="email" id="email" name="email" required>
+          
+          <label for="mensaje">Mensaje:</label>
+          <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+          
+          <button type="submit">Enviar mensaje</button>
+        </form>
+      </div>
+      
+      <div class="contacto-info">
+        <h3>Información de contacto</h3>
+        <ul>
+          <li><i>📧</i> santiestebanpocerosabril@gmail.com</li>
+          <li><i>😁</i>Abril Santiesteban Poceros</li>
+        </ul>
+        
+        <h3>Síguenos</h3>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook">FB</a>
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Twitter">TW</a>
+          <a href="#" aria-label="YouTube">YT</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -170,14 +822,322 @@
 
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
+    // Inicialización de AOS (animaciones)
     AOS.init({ duration: 1000, once: true });
-    const swiper = new Swiper('.mySwiper', {
-      loop: true,
-      spaceBetween: 20,
+    
+    // Generar burbujas para el header
+    function crearBurbujas() {
+      const bubblesContainer = document.getElementById('header-bubbles');
+      const bubbleCount = 15;
+      
+      for (let i = 0; i < bubbleCount; i++) {
+        const bubble = document.createElement('div');
+        bubble.classList.add('bubble');
+        
+        // Tamaño aleatorio entre 10px y 50px
+        const size = Math.random() * 40 + 10;
+        bubble.style.width = `${size}px`;
+        bubble.style.height = `${size}px`;
+        
+        // Posición horizontal aleatoria
+        bubble.style.left = `${Math.random() * 100}%`;
+        
+        // Duración de animación aleatoria
+        const duration = Math.random() * 10 + 5;
+        bubble.style.animationDuration = `${duration}s`;
+        
+        // Retraso inicial aleatorio
+        bubble.style.animationDelay = `${Math.random() * 5}s`;
+        
+        bubblesContainer.appendChild(bubble);
+      }
+    }
+    
+    // Frases motivacionales
+    const frasesMotivacionales = [
+      {
+        texto: "La salud mental es tan importante como la salud física.",
+        autor: "Anónimo"
+      },
+      {
+        texto: "No hay salud sin salud mental.",
+        autor: "Organización Mundial de la Salud"
+      },
+      {
+        texto: "Hablar de tus sentimientos es el primer paso para sanar.",
+        autor: "Anónimo"
+      },
+      {
+        texto: "Tu salud mental es una prioridad, no un lujo.",
+        autor: "Anónimo"
+      },
+      {
+        texto: "Está bien no estar bien. Lo importante es pedir ayuda.",
+        autor: "Anónimo"
+      },
+      {
+        texto: "Cuidar tu mente es cuidar tu vida.",
+        autor: "Anónimo"
+      },
+      {
+        texto: "Pequeños pasos siguen siendo progreso.",
+        autor: "Anónimo"
+      },
+      {
+        texto: "No estás solo en esto. Hay ayuda disponible.",
+        autor: "Anónimo"
+      }
+    ];
+    
+    // Mostrar frase aleatoria al cargar y al refrescar
+    function mostrarFraseAleatoria() {
+      const frase = frasesMotivacionales[Math.floor(Math.random() * frasesMotivacionales.length)];
+      document.getElementById('frase-texto').textContent = `"${frase.texto}"`;
+      document.getElementById('frase-autor').textContent = `- ${frase.autor}`;
+    }
+    
+    // Inicialización del carrusel
+    const swiper = new Swiper(".mySwiper", {
+      effect: "coverflow",
+      grabCursor: true,
       centeredSlides: true,
-      autoplay: { delay: 5000, disableOnInteraction: false },
-      pagination: { el: '.swiper-pagination', clickable: true },
+      slidesPerView: "auto",
+      coverflowEffect: {
+        rotate: 20,
+        stretch: 0,
+        depth: 200,
+        modifier: 1,
+        slideShadows: true,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+      loop: true,
+    });
+    
+    // Frases del día
+    const frases = [
+      "Eres más fuerte de lo que crees y mereces estar en paz contigo mismo/a.",
+      "Cada día es una nueva oportunidad para crecer y aprender.",
+      "Tus sentimientos son válidos, pero no definen quién eres.",
+      "No tienes que ser perfecto/a, solo tienes que ser tú.",
+      "Pedir ayuda es un acto de valentía, no de debilidad.",
+      "El autocuidado no es egoísta, es esencial.",
+      "Pequeños pasos siguen siendo progreso.",
+      "Tu salud mental es tan importante como tu salud física."
+    ];
+    
+    document.getElementById('cambiar-frase').addEventListener('click', function() {
+      const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
+      document.getElementById('frase-del-dia').textContent = `"${fraseAleatoria}"`;
+      document.getElementById('frase-del-dia').classList.add('animate-pop');
+      setTimeout(() => {
+        document.getElementById('frase-del-dia').classList.remove('animate-pop');
+      }, 500);
+    });
+    
+    // Evaluación de salud
+    document.getElementById('evaluar-salud').addEventListener('click', function() {
+      const selects = document.querySelectorAll('#form-salud select');
+      let score = 0;
+      
+      selects.forEach((sel, i) => {
+        const val = sel.value;
+        if (val === 'Siempre') score += 3;
+        else if (val === 'Frecuentemente') score += 2;
+        else if (val === 'A veces') score += 1;
+      });
+      
+      let mensaje = '';
+      let icono = '';
+      
+      if (score <= 5) {
+        mensaje = 'Tu salud emocional está relativamente estable. Sigue cuidándote.';
+        icono = 'success';
+      } else if (score <= 10) {
+        mensaje = 'Podría ayudarte hablar con alguien de confianza o un profesional.';
+        icono = 'warning';
+      } else {
+        mensaje = 'Prioriza tu bienestar emocional. Busca apoyo profesional pronto.';
+        icono = 'error';
+      }
+      
+      Swal.fire({
+        title: 'Resultado de tu evaluación',
+        text: mensaje,
+        icon: icono,
+        confirmButtonText: 'Entendido',
+        confirmButtonColor: '#4a9e92',
+        backdrop: `
+          rgba(0,0,0,0.4)
+          url("https://media.giphy.com/media/3o7TKUM3IgJBX2as9O/giphy.gif")
+          center top
+          no-repeat
+        `
+      });
+    });
+    
+    // Evaluación de autoestima
+    document.getElementById('evaluar-autoestima').addEventListener('click', function() {
+      const selects = document.querySelectorAll('#form-autoestima select');
+      let negativas = 0;
+      
+      selects.forEach((sel, i) => {
+        const val = sel.value;
+        if ((i < 2 && (val === 'Siempre' || val === 'A menudo'))) negativas++;
+        else if ((i === 2 && (val === 'Nunca' || val === 'A veces'))) negativas++;
+        else if ((i === 3 && (val === 'Nunca' || val === 'A veces'))) negativas++;
+        else if ((i === 4 && (val === 'Siempre' || val === 'A menudo'))) negativas++;
+      });
+      
+      let mensaje = '';
+      let icono = '';
+      
+      if (negativas >= 3) {
+        mensaje = 'Podrías estar necesitando fortalecer tu autoestima. Considera hablar con alguien de confianza o un profesional.';
+        icono = 'warning';
+      } else {
+        mensaje = 'Tu autoestima parece estar en buen nivel. ¡Sigue cuidándote!';
+        icono = 'success';
+      }
+      
+      Swal.fire({
+        title: 'Resultado de tu evaluación',
+        text: mensaje,
+        icon: icono,
+        confirmButtonText: 'Entendido',
+        confirmButtonColor: '#4a9e92'
+      });
+    });
+    
+    // Ruleta de emociones
+    const ruleta = document.getElementById('ruleta');
+    const btnGirar = document.getElementById('girar-ruleta');
+    const resultado = document.getElementById('resultado-emocion');
+    let girando = false;
+    
+    btnGirar.addEventListener('click', function() {
+      if (girando) return;
+      
+      girando = true;
+      resultado.textContent = '';
+      
+      // Rotación aleatoria (mínimo 2 vueltas)
+      const grados = 1440 + Math.floor(Math.random() * 360);
+      ruleta.style.transform = `rotate(${-grados}deg)`;
+      
+      setTimeout(() => {
+        girando = false;
+        
+        // Calcular emoción resultante
+        const anguloFinal = grados % 360;
+        let emocion = '';
+        
+        if (anguloFinal < 72) emocion = 'Felicidad';
+        else if (anguloFinal < 144) emocion = 'Tristeza';
+        else if (anguloFinal < 216) emocion = 'Enojo';
+        else if (anguloFinal < 288) emocion = 'Miedo';
+        else emocion = 'Calma';
+        
+        resultado.textContent = `Hoy te sientes: ${emocion}`;
+        
+        // Mostrar mensaje según emoción
+        let mensaje = '';
+        switch(emocion) {
+          case 'Felicidad':
+            mensaje = '¡Qué bueno que te sientes así! Disfruta este momento.';
+            break;
+          case 'Tristeza':
+            mensaje = 'Está bien sentirse así a veces. Permítete sentir y recuerda que no estás solo/a.';
+            break;
+          case 'Enojo':
+            mensaje = 'El enojo es una emoción válida. Intenta canalizarlo de forma constructiva.';
+            break;
+          case 'Miedo':
+            mensaje = 'El miedo puede protegernos, pero no dejes que te limite. Habla de lo que sientes.';
+            break;
+          case 'Calma':
+            mensaje = 'La calma es un regalo. Aprovecha este estado para conectar contigo mismo/a.';
+            break;
+        }
+        
+        Swal.fire({
+          title: `Hoy te sientes: ${emocion}`,
+          text: mensaje,
+          icon: 'info',
+          confirmButtonText: 'Entendido',
+          confirmButtonColor: '#4a9e92'
+        });
+      }, 4000);
+    });
+    
+    // Bingo interactivo
+    const bingoItems = document.querySelectorAll('.bingo-item');
+    const progresoBar = document.getElementById('bingo-progreso');
+    const bingoMensaje = document.getElementById('bingo-mensaje');
+    let marcados = 0;
+    
+    bingoItems.forEach(item => {
+      item.addEventListener('click', function() {
+        const index = this.getAttribute('data-index');
+        
+        if (this.classList.contains('marcado')) {
+          this.classList.remove('marcado');
+          marcados--;
+        } else {
+          this.classList.add('marcado');
+          marcados++;
+        }
+        
+        // Actualizar progreso
+        const porcentaje = (marcados / bingoItems.length) * 100;
+        progresoBar.style.width = `${porcentaje}%`;
+        
+        // Mostrar mensaje según progreso
+        if (marcados === 0) {
+          bingoMensaje.textContent = '';
+        } else if (marcados <= 3) {
+          bingoMensaje.textContent = '¡Buen comienzo! Sigue trabajando en tu autocuidado.';
+        } else if (marcados <= 6) {
+          bingoMensaje.textContent = '¡Vas muy bien! Estás haciendo un buen trabajo con tu bienestar.';
+        } else {
+          bingoMensaje.textContent = '¡Excelente! Estás priorizando tu autocuidado de manera ejemplar.';
+        }
+        
+        // Animación
+        this.classList.add('animate-pop');
+        setTimeout(() => {
+          this.classList.remove('animate-pop');
+        }, 500);
+      });
+    });
+    
+    // Formulario de contacto
+    document.getElementById('form-contacto').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      Swal.fire({
+        title: '¡Mensaje enviado!',
+        text: 'Gracias por contactarnos. Te responderemos lo antes posible.',
+        icon: 'success',
+        confirmButtonText: 'Entendido',
+        confirmButtonColor: '#4a9e92'
+      });
+      
+      this.reset();
+    });
+    
+    // Inicialización
+    document.addEventListener('DOMContentLoaded', function() {
+      crearBurbujas();
+      mostrarFraseAleatoria();
     });
   </script>
 </body>
